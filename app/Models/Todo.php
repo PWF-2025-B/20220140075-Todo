@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
@@ -13,7 +14,7 @@ class Todo extends Model
 
         'user_id',
 
-        is_complete,
+        'is_complete',
     ];
 
     public function user(){
