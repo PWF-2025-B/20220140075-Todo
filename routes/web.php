@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,6 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/todo/edit', [TodoController::class, 'edit'])->name('todo.edit');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+
+    Route::resource('todo', TodoController::class)->except(['show']);
+
+    Route::post('/todo', [TodoController::class, 'store'])->name('todo.store');
 });
 
 require __DIR__.'/auth.php';
