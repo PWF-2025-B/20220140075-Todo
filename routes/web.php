@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', function () {
@@ -31,14 +32,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/todo/{todo}/edit', [TodoController::class, 'edit'])->name('todo.edit');
     Route::patch('/todo/{todo}', [TodoController::class, 'update'])->name('todo.update');
-
     Route::post('/todo', [TodoController::class, 'store'])->name('todo.store');
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-    
-
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+
+    Route::resource('category', CategoryController::class)->except(['show']);
+    Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/category/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::patch('/category/{category}', [CategoryController::class, 'update'])->name('category.update');
 });
 
 Route::middleware(['auth', 'admin']) ->group(function(){

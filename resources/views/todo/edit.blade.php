@@ -18,6 +18,22 @@
                                 :value="old('name', $todo->title)" required autofocus autocomplete="title" />
                             <x-input-error class="mt-2" :messages="$errors->get('title')" />
                         </div>
+                        <div class="mb-6">
+                            <x-input-label for="category_id" :value="__('Category')" />
+                            <select name="category_id" id="category_id"
+                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+           dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ $todo->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
+                        </div>
 
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
